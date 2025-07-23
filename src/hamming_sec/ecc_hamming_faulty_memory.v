@@ -7,11 +7,11 @@ module ecc_hamming_faulty_memory(
     input wr_en,
 
     input [3:0] fault_addr,
-    input fault_enable
+    input fault_enable,
 
     output [7:0] output_data,
     output single_bit_error_corrected
-)
+);
 
     // Memory stores 12-bit codewords (8 data bits + 4 ECC)
     reg [11:0] mem [0:15];
@@ -21,13 +21,13 @@ module ecc_hamming_faulty_memory(
     wire [11:0] corrupted;
 
     // Encoder instantiation
-    hamming_encoder encoder (
+    hamming_sec_encoder encoder (
         .input_data(input_data),
         .output_code(encoded)
     );
 
     // Memory module
-    ecc_memory_array memory (
+    mem memory(
         .clk(clk),
         .rst(rst),
         .wr_en(wr_en),
@@ -45,7 +45,7 @@ module ecc_hamming_faulty_memory(
     );
 
     // Decoder instantiation
-    hamming_decoder decoder (
+    hamming_sec_decoder decoder (
         .in_code(corrupted),
         .out_data(output_data),
         .error_corrected(single_bit_error_corrected)

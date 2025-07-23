@@ -10,10 +10,10 @@ module mem (
     reg [12:0] mem [0:15];
 
     assign data_out = mem[addr];
+    integer i;
 
     always @(posedge clk or posedge rst) begin
         if (rst) begin
-            integer i;
             for (i = 0; i < 16; i = i + 1)
                 mem[i] <= 12'd0;
         end else if (wr_en) begin

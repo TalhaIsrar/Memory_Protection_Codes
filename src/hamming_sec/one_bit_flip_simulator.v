@@ -3,7 +3,7 @@ module one_bit_flip_simulator
     input  [11:0] in_code,
     input  [3:0]  fault_bit_addr,
     input  fault_en,
-    output [11:0] out_error_code
+    output reg[11:0] out_error_code
 );
 
     always @(*) begin
