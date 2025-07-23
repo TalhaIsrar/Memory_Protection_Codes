@@ -1,6 +1,6 @@
 module hamming_sec_encoder(
-    input  [7:0] input_data
-    output [11:0] output_code,
+    input  [7:0] input_data,
+    output [11:0] output_code
 );
 
     wire [11:0] code;
