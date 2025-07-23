@@ -1,10 +1,17 @@
 module hamming_sec_encoder(
-    input  [15:0] input_data;
-    output [20:0] output_code;
+    input  [7:0] input_data;
+    output [11:0] output_code;
 );
 
-    always @(*) begin
-        
+    wire [11:0] code;
 
-    end
+    // Assign the data bits
+    assign code[11:4] = input_data;
+
+    // Compute parity bits
+    assign code[3] = 
+    assign code[2] = 
+    assign code[1] = 
+    assign code[0] = 
+
 endmodule
