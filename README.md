@@ -14,6 +14,8 @@ This repository focuses on such codes implemented in Verilog for hardware design
 ---
 
 ## 🗂️ Project Structure
+
+```
 .
 ├── src/ # Source code for all memory protection code implementations
 │ ├── hamming_sec/ # Hamming Single Error Correction code project
@@ -24,7 +26,7 @@ This repository focuses on such codes implemented in Verilog for hardware design
 ├── images/ # Architecture diagrams and related visuals
 │
 └── README.md # This master README file
-
+```
 
 ---
 
