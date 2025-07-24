@@ -80,11 +80,11 @@ If the syndrome is non-zero, the decoder corrects the bit at the specified index
 
 ### ✅ ECC Hamming Memory
 
-![ECC Hamming Memory Diagram](img/ecc_hamming_memory_diagram.png)
+![ECC Hamming_Memory](images/hamming_sec_mem.png)
 
 ### ✅ ECC Hamming Faulty Memory
 
-![ECC Hamming Faulty Memory Diagram](img/ecc_hamming_faulty_memory_diagram.png)
+![ECC Hamming Faulty_Memory](images/hamming_sec_faulty_mem.png)
 
 ---
 
@@ -113,12 +113,10 @@ If the syndrome is non-zero, the decoder corrects the bit at the specified index
 ### 🔹 `ecc_hamming_memory`
 
 * Top-level wrapper for encoder, memory, and decoder (no fault injection).
-![ECC Hamming_Memory](images/hamming_sec_mem.png)
 
 ### 🔹 `ecc_hamming_faulty_memory`
 
 * Includes fault injector before passing to decoder.
-![ECC Hamming Faulty_Memory](images/hamming_sec_faulty_mem.png)
 ---
 
 ## 🔧 Optimization
