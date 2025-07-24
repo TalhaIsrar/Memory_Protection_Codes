@@ -80,11 +80,11 @@ If the syndrome is non-zero, the decoder corrects the bit at the specified index
 
 ### ✅ ECC Hamming Memory
 
-![ECC Hamming Memory](../images/hamming_sec_mem.png)
+![ECC Hamming Memory](../../images/hamming_sec_mem.png)
 
 ### ✅ ECC Hamming Faulty Memory
 
-![ECC Hamming Faulty Memory](../images/hamming_sec_faulty_mem.png)
+![ECC Hamming Faulty Memory](../../images/hamming_sec_faulty_mem.png)
 
 ---
 
