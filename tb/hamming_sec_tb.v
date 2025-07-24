@@ -13,7 +13,7 @@ module hamming_sec_tb();
     wire [7:0]  output_data;
     wire        single_bit_error_corrected;
 
-    // Instantiate the DUT
+    // Instantiate DUT
     ecc_hamming_faulty_memory dut (
         .clk(clk),
         .rst(rst),
@@ -30,63 +30,59 @@ module hamming_sec_tb();
     initial clk = 0;
     always #5 clk = ~clk;
 
+    // Initialize memory with sample values
+    reg [7:0] test_data [0:7];
+    integer i, b;
+
     initial begin
-        // Initialize inputs
-        rst = 1;
-        input_data = 0;
-        input_addr = 0;
-        wr_en = 0;
-        fault_addr = 0;
-        fault_enable = 0;
+        // Sample data
+        test_data[0] = 8'hA5;
+        test_data[1] = 8'h3C;
+        test_data[2] = 8'hFF;
+        test_data[3] = 8'h00;
+        test_data[4] = 8'h5A;
+        test_data[5] = 8'hC3;
+        test_data[6] = 8'h1E;
+        test_data[7] = 8'hB4;
 
-        // Hold reset for 2 clock cycles
-        #12;
-        rst = 0;
+        // Init
+        rst = 1; wr_en = 0; input_data = 0; input_addr = 0; fault_enable = 0; fault_addr = 0;
+        #12; rst = 0;
 
-        // Write some data to address 0
-        #10
-        input_data = 8'hA5;
-        input_addr = 4'd0;
-        wr_en = 1;
-        #10
-        wr_en = 0;
+        // Write phase
+        for (i = 0; i < 8; i = i + 1) begin
+            input_addr = i;
+            input_data = test_data[i];
+            wr_en = 1;
+            #10 wr_en = 0;
+            #10;
+        end
 
-        // Read back without fault injection
-        #10
-        fault_enable = 0;
-        input_addr = 4'd0;
+        // Read back without faults
+        $display("Reading back without any faults:");
+        for (i = 0; i < 8; i = i + 1) begin
+            input_addr = i;
+            fault_enable = 0;
+            #10;
+            $display("Addr %0d: Data = 0x%h, Corrected = %b", i, output_data, single_bit_error_corrected);
+        end
 
-        #10
-        $display("Read data: 0x%h, Error corrected: %b", output_data, single_bit_error_corrected);
+        // Inject single-bit faults one-by-one
+        $display("\nInjecting single-bit faults at various positions:");
+        for (i = 0; i < 8; i = i + 1) begin
+            input_addr = i;
+            for (b = 0; b < 12; b = b + 1) begin
+                fault_addr = b;
+                fault_enable = 1;
+                #10;
+                $display("Addr %0d, Fault @ bit %0d: Data = 0x%h, Corrected = %b", i, b, output_data, single_bit_error_corrected);
+                fault_enable = 0;
+                #10;
+            end
+        end
 
-        // Inject single-bit fault at bit 2 of the codeword
-        fault_addr = 4'd2;
-        fault_enable = 1;
-
-        #10
-        $display("After fault injection: Read data: 0x%h, Error corrected: %b", output_data, single_bit_error_corrected);
-
-        // Remove fault injection
-        fault_enable = 0;
-
-        #10
-        $display("Fault removed: Read data: 0x%h, Error corrected: %b", output_data, single_bit_error_corrected);
-
-        // Write different data to address 1
-        #10
-        input_data = 8'h3C;
-        input_addr = 4'd1;
-        wr_en = 1;
-        #10
-        wr_en = 0;
-
-        // Read back without fault injection
-        #10
-        input_addr = 4'd1;
-        #10
-        $display("Read data addr1: 0x%h, Error corrected: %b", output_data, single_bit_error_corrected);
-
-        // Finish simulation
+        // Done
+        $display("\nSimulation complete.");
         #20;
         $finish;
     end
