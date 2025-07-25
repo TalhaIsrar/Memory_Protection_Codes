@@ -67,7 +67,7 @@ If the syndrome is non-zero, the decoder corrects the bit at the specified index
 ├── tb/
 │   └── hamming_sec_tb.v                    # Testbench with functional scenarios
 │
-├── img/
+├── images/
 │   ├── ecc_hamming_memory_diagram.png      # Diagram of normal ECC memory
 │   └── ecc_hamming_faulty_memory_diagram.png # Diagram with fault injection
 │

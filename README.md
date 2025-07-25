@@ -18,8 +18,9 @@ This repository focuses on such codes implemented in Verilog for hardware design
 ```
 .
 ├── src/ # Source code for all memory protection code implementations
-│ ├── hamming_sec/ # Hamming Single Error Correction code project
-│ └── ... # OTHERS TO BE ADDED
+│    ├── hamming_sec     / # Hamming Single Error Correction code project
+│    ├── hamming_sec_ded / # Hamming Single Error Correction & Double Error Detection code project
+│    └── ... # OTHERS TO BE ADDED
 │
 ├── tb/ # Testbenches corresponding to different projects
 │
@@ -45,11 +46,14 @@ This repository focuses on such codes implemented in Verilog for hardware design
 - [Hamming SEC (Single Error Correction)](src/hamming_sec/README.md)  
   Implements Hamming(12,8) code that **detects and corrects single-bit errors** for 8-bit data. Supports fault injection to test error correction in memory modules.
 
+- [Hamming SEC DED (Single Error Correction, Double Error Detection)](src/hamming_sec_ded/README.md)  
+  Implements Hamming(13,8) code that **detects 1-bit & 2-bit errors & corrects 1-bit errors** for 8-bit data. Supports fault injection to test error correction in memory modules.
+
 ---
 
 ## 🛠️ Future Work
 
-- Add more memory protection codes focusing on **error detection only** (e.g., Berger codes) and **combined detection and correction** schemes (e.g., SECDED).  
+- Optimize existing codes
 - Extend testbenches for comprehensive coverage.  
 - Integrate formal verification techniques.
 
