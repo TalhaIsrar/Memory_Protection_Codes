@@ -16,7 +16,7 @@ module hamming_sec_encoder(
     assign code[2]  = input_data[0];
 
     // Compute parity bits
-    assign code[7] = code[11] ^ code[10] ^ code[9] ^ code[8]; 
+    assign code[8] = code[11] ^ code[10] ^ code[9] ^ code[8]; 
     assign code[3] = code[11] ^ code[6]  ^ code[5] ^ code[4];
     assign code[1] = code[10] ^ code[9]  ^ code[6] ^ code[5] ^ code[2];
     assign code[0] = code[10] ^ code[8]  ^ code[6] ^ code[4] ^ code[2];

@@ -1,4 +1,4 @@
-module mem_sec_ded (
+module mem_secded (
     input         clk,
     input         rst,
     input         wr_en,

@@ -2,7 +2,7 @@ module hamming_secded_decoder(
     input  [12:0] in_code,
     output reg [7:0] out_data,
     output reg single_error_corrected,
-    output reg double_error_detected,
+    output reg double_error_detected
 );
 
     wire [3:0] syndrome;
@@ -11,7 +11,7 @@ module hamming_secded_decoder(
 
     // Compute syndrome
     assign syndrome[3] = in_code[12] ^ in_code[11] ^ in_code[10] ^ in_code[9] ^ in_code[8]; 
-    assign syndrome[2] = in_code[12] ^ in_code[7]  ^ in_code[6]  ^ in_code[5] ^ in_code[2];
+    assign syndrome[2] = in_code[12] ^ in_code[7]  ^ in_code[6]  ^ in_code[5] ^ in_code[4];
     assign syndrome[1] = in_code[11] ^ in_code[10] ^ in_code[7]  ^ in_code[6] ^ in_code[3] ^ in_code[2];
     assign syndrome[0] = in_code[11] ^ in_code[9]  ^ in_code[7]  ^ in_code[5] ^ in_code[3] ^ in_code[1];
 

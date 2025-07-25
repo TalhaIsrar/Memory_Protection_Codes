@@ -7,11 +7,14 @@ module hamming_secded_tb();
     reg  [7:0]  input_data;
     reg  [3:0]  input_addr;
     reg         wr_en;
-    reg  [3:0]  fault_addr;
+    reg  [3:0]  fault_addr1;
+    reg  [3:0]  fault_addr2;
     reg         fault_enable;
+    reg         two_bit_fault_enable;
 
     wire [7:0]  output_data;
     wire        single_bit_error_corrected;
+    wire        double_bit_error_detected;
 
     // Instantiate DUT
     ecc_hamming_secded_faulty_memory dut (
@@ -20,10 +23,13 @@ module hamming_secded_tb();
         .input_data(input_data),
         .input_addr(input_addr),
         .wr_en(wr_en),
-        .fault_addr(fault_addr),
+        .fault_addr1(fault_addr1),
+        .fault_addr2(fault_addr2),
         .fault_enable(fault_enable),
+        .two_bit_fault_enable(two_bit_fault_enable),
         .output_data(output_data),
-        .single_bit_error_corrected(single_bit_error_corrected)
+        .single_bit_error_corrected(single_bit_error_corrected),
+        .double_bit_error_detected(double_bit_error_detected)
     );
 
     // Clock generation: 10ns period
@@ -32,7 +38,7 @@ module hamming_secded_tb();
 
     // Initialize memory with sample values
     reg [7:0] test_data [0:7];
-    integer i, b;
+    integer i, b1, b2;
 
     initial begin
         // Sample data
@@ -45,8 +51,9 @@ module hamming_secded_tb();
         test_data[6] = 8'h1E;
         test_data[7] = 8'hB4;
 
-        // Init
-        rst = 1; wr_en = 0; input_data = 0; input_addr = 0; fault_enable = 0; fault_addr = 0;
+        // Reset and init
+        rst = 1; wr_en = 0; input_data = 0; input_addr = 0;
+        fault_enable = 0; fault_addr1 = 0; fault_addr2 = 0; two_bit_fault_enable = 0;
         #12; rst = 0;
 
         // Write phase
@@ -59,29 +66,51 @@ module hamming_secded_tb();
         end
 
         // Read back without faults
-        $display("Reading back without any faults:");
+        $display("\nReading back without any faults:");
         for (i = 0; i < 8; i = i + 1) begin
             input_addr = i;
             fault_enable = 0;
+            two_bit_fault_enable = 0;
             #10;
-            $display("Addr %0d: Data = 0x%h, Corrected = %b", i, output_data, single_bit_error_corrected);
+            $display("Addr %0d: Data = 0x%h | Corrected: %b | Double error: %b",
+                i, output_data, single_bit_error_corrected, double_bit_error_detected);
         end
 
-        // Inject single-bit faults one-by-one
-        $display("\nInjecting single-bit faults at various positions:");
+        // Inject single-bit faults
+        $display("\nInjecting single-bit faults at all positions:");
         for (i = 0; i < 8; i = i + 1) begin
             input_addr = i;
-            for (b = 0; b < 12; b = b + 1) begin
-                fault_addr = b;
+            for (b1 = 0; b1 < 13; b1 = b1 + 1) begin
+                fault_addr1 = b1;
                 fault_enable = 1;
+                two_bit_fault_enable = 0; // 1-bit fault
                 #10;
-                $display("Addr %0d, Fault @ bit %0d: Data = 0x%h, Corrected = %b", i, b, output_data, single_bit_error_corrected);
+                $display("Addr %0d, Fault@%0d: Data=0x%h | Corrected=%b | DoubleErr=%b",
+                    i, b1, output_data, single_bit_error_corrected, double_bit_error_detected);
                 fault_enable = 0;
-                #10;
+                #5;
             end
         end
 
-        // Done
+        // Inject double-bit faults
+        $display("\nInjecting double-bit faults:");
+        for (i = 0; i < 2; i = i + 1) begin // limit for brevity
+            input_addr = i;
+            for (b1 = 0; b1 < 13; b1 = b1 + 1) begin
+                for (b2 = b1 + 1; b2 < 13; b2 = b2 + 1) begin
+                    fault_addr1 = b1;
+                    fault_addr2 = b2;
+                    fault_enable = 1;
+                    two_bit_fault_enable = 1;
+                    #10;
+                    $display("Addr %0d, Fault@%0d,%0d: Data=0x%h | Corrected=%b | DoubleErr=%b",
+                        i, b1, b2, output_data, single_bit_error_corrected, double_bit_error_detected);
+                    fault_enable = 0;
+                    #5;
+                end
+            end
+        end
+
         $display("\nSimulation complete.");
         #20;
         $finish;
