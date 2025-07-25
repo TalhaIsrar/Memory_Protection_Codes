@@ -13,9 +13,6 @@ module ecc_hamming_faulty_memory(
     output single_bit_error_corrected
 );
 
-    // Memory stores 12-bit codewords (8 data bits + 4 ECC)
-    reg [11:0] mem [0:15];
-
     wire [11:0] encoded;
     wire [11:0] codeword_read;
     wire [11:0] corrupted;

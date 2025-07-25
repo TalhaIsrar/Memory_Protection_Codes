@@ -7,7 +7,7 @@ module mem (
     output [11:0] data_out
 );
 
-    reg [12:0] mem [0:15];
+    reg [11:0] mem [0:15];
 
     assign data_out = mem[addr];
     integer i;

@@ -1,10 +1,10 @@
-module mem_secded (
+module mem_sec_ded (
     input         clk,
     input         rst,
     input         wr_en,
     input  [3:0]  addr,
-    input  [11:0] data_in,
-    output [11:0] data_out
+    input  [12:0] data_in,
+    output [12:0] data_out
 );
 
     reg [12:0] mem [0:15];

@@ -6,19 +6,19 @@ module ecc_hamming_secded_faulty_memory(
     input [3:0] input_addr,
     input wr_en,
 
-    input [3:0] fault_addr,
+    input [3:0] fault_addr1,
+    input [3:0] fault_addr2,
     input fault_enable,
+    input two_bit_fault_enable,
 
     output [7:0] output_data,
-    output single_bit_error_corrected
+    output single_bit_error_corrected,
+    output double_bit_error_detected
 );
 
-    // Memory stores 12-bit codewords (8 data bits + 4 ECC)
-    reg [11:0] mem [0:15];
-
-    wire [11:0] encoded;
-    wire [11:0] codeword_read;
-    wire [11:0] corrupted;
+    wire [12:0] encoded;
+    wire [12:0] codeword_read;
+    wire [12:0] corrupted;
 
     // Encoder instantiation
     hamming_secded_encoder encoder (
@@ -39,8 +39,10 @@ module ecc_hamming_secded_faulty_memory(
     // Fault injector for single bit flip
     two_bit_fault_injector injector (
         .in_code(codeword_read),
-        .fault_bit_addr(fault_addr),
+        .fault_bit_addr1(fault_addr1),
+        .fault_bit_addr2(fault_addr2),
         .fault_en(fault_enable),
+        .is_two_bit_fault(two_bit_fault_enable),
         .out_error_code(corrupted)
     );
 
@@ -48,7 +50,8 @@ module ecc_hamming_secded_faulty_memory(
     hamming_secded_decoder decoder (
         .in_code(corrupted),
         .out_data(output_data),
-        .error_corrected(single_bit_error_corrected)
+        .single_error_corrected(single_bit_error_corrected),
+        .double_error_detected(double_bit_error_detected)
     );
 
 endmodule

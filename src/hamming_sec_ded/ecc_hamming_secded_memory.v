@@ -7,14 +7,12 @@ module ecc_hamming_secded_memory(
     input wr_en,
 
     output [7:0] output_data,
-    output single_bit_error_corrected
+    output single_bit_error_corrected,
+    output double_bit_error_detected
 );
 
-    // Memory stores 12-bit codewords (8 data bits + 4 ECC)
-    reg [11:0] mem [0:15];
-
-    wire [11:0] encoded;
-    wire [11:0] codeword_read;
+    wire [12:0] encoded;
+    wire [12:0] codeword_read;
 
     // Encoder instantiation
     hamming_secded_encoder encoder (
@@ -36,7 +34,8 @@ module ecc_hamming_secded_memory(
     hamming_secded_decoder decoder (
         .in_code(codeword_read),
         .out_data(output_data),
-        .error_corrected(single_bit_error_corrected)
+        .single_error_corrected(single_bit_error_corrected),
+        .double_error_detected(double_bit_error_detected)
     );
 
 endmodule
