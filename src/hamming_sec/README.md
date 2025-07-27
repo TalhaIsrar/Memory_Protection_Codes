@@ -16,6 +16,17 @@ Hamming codes are linear error-correcting codes that add redundant bits (parity 
 
 We use the **Hamming(12,8)** configuration:
 
+## 📏 Hamming SEC Code Bit Calculation
+
+The following inequality (Hamming Relationship) is used to detemine the required number of bits:
+`2^p >= p + d + 1`
+
+Where:
+- `d` = number of data bits
+- `p` = number of hamming code bits
+
+In our example d = 8, so solving the inequality p needs to be a minimum of 4 bits
+
 ### Parity Bit Positions (Hamming(12,8)):
 
 | Bit Index | 11 | 10 | 9  | 8  | 7  | 6  | 5  | 4  | 3  | 2  | 1  | 0  |

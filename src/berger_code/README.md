@@ -16,6 +16,17 @@ Berger codes are **unidirectional error detection codes** that count the number 
 
 We use the **Berger(12,8)** configuration:
 
+## 📏 Berger Code Bit Calculation
+
+The following formula is used to detemine the required number of bits:
+`b = floor(log2(d)) + 1`
+
+Where:
+- `d` = number of data bits
+- `b` = number of Berger code bits
+
+In our example d = 8, so using the formula b = 4
+
 ### Parity Bit Positions (Berger(12,8)):
 
 | Bit Index | 11 | 10 | 9  | 8  | 7  | 6  | 5  | 4  | 3  | 2  | 1  | 0  |
