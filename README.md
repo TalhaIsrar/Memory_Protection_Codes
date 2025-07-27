@@ -20,7 +20,7 @@ This repository focuses on such codes implemented in Verilog for hardware design
 ├── src/ # Source code for all memory protection code implementations
 │    ├── hamming_sec     / # Hamming Single Error Correction code project
 │    ├── hamming_sec_ded / # Hamming Single Error Correction & Double Error Detection code project
-│    ├── berger_code     / # Berger Single Error Correction for Unidirectional Errors
+│    ├── berger_code     / # Berger Code Detection for Unidirectional Errors
 │    └── ... # OTHERS TO BE ADDED
 │
 ├── tb/ # Testbenches corresponding to different projects

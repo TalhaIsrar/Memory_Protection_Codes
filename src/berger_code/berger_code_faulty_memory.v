@@ -11,7 +11,7 @@ module berger_code_faulty_memory(
     input fault_zero_to_one,
 
     output [7:0] output_data,
-    output zero_to_one_error
+    output error_detected
 );
 
     wire [11:0] encoded;
@@ -47,7 +47,7 @@ module berger_code_faulty_memory(
     berger_code_decoder decoder (
         .in_code(corrupted),
         .out_data(output_data),
-        .error_detected(zero_to_one_error)
+        .error_detected(error_detected)
     );
 
 endmodule
