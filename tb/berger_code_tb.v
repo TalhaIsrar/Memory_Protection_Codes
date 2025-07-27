@@ -9,13 +9,13 @@ module berger_code_tb();
     reg         wr_en;
     reg  [11:0] fault_mask;
     reg         fault_enable;
-    reg         error_detected;
+    reg         zero_to_one_error;
 
     wire [7:0]  output_data;
     wire        error_detected;
 
     // Instantiate DUT
-    berger_zero_faulty_memory dut (
+    berger_code_faulty_memory dut (
         .clk(clk),
         .rst(rst),
         .input_data(input_data),
@@ -23,7 +23,7 @@ module berger_code_tb();
         .wr_en(wr_en),
         .unidirectional_fault_mask(fault_mask),
         .fault_enable(fault_enable),
-        .fault_zero_to_one(error_detected),
+        .fault_zero_to_one(zero_to_one_error),
         .output_data(output_data),
         .error_detected(error_detected)
     );
@@ -64,7 +64,7 @@ module berger_code_tb();
 
         // Initialize inputs
         rst = 1; wr_en = 0; input_data = 0; input_addr = 0; 
-        fault_mask = 12'b0; fault_enable = 0; error_detected = 1'b1; 
+        fault_mask = 12'b0; fault_enable = 0; zero_to_one_error = 1'b1; 
         #12; rst = 0;
 
         // Write data to memory
@@ -101,6 +101,24 @@ module berger_code_tb();
                 #10;
             end
         end
+        
+        #30;
+        zero_to_one_error = 1'b0; 
+
+        // Inject multi-bit faults with multiple bits set
+        $display("\nInjecting multi-bit faults with multiple bits set:");
+        for (i = 0; i < 2; i = i + 1) begin
+            input_addr = i[3:0];
+            for (mask_idx = 0; mask_idx < 10; mask_idx = mask_idx + 1) begin
+                fault_mask = multi_fault_masks[mask_idx];
+                fault_enable = 1;
+                #10;
+                $display("Addr %0d, Fault Mask %b: Data = 0x%h, Error Detected = %b", i, fault_mask, output_data, error_detected);
+                fault_enable = 0;
+                #10;
+            end
+        end
+
 
         // Inject multi-bit faults with multiple bits set
         $display("\nInjecting multi-bit faults with multiple bits set:");
