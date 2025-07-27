@@ -170,5 +170,5 @@ Licensed under the **MIT License** – free to use, modify, and distribute.
 ## 🤝 Contributions
 
 Pull requests, feature additions, and bug reports are welcome.
-Let us know if you'd like to contribute diagrams, testbenches, or extensions!
+Let me know if you'd like to contribute diagrams, testbenches, or extensions!
 

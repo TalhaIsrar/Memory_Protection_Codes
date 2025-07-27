@@ -1,13 +1,13 @@
-module mem_secded (
+module mem_berger_code (
     input         clk,
     input         rst,
     input         wr_en,
     input  [3:0]  addr,
-    input  [12:0] data_in,
-    output [12:0] data_out
+    input  [11:0] data_in,
+    output [11:0] data_out
 );
 
-    reg [12:0] mem [0:15];
+    reg [11:0] mem [0:15];
 
     assign data_out = mem[addr];
     integer i;
@@ -15,7 +15,7 @@ module mem_secded (
     always @(posedge clk or posedge rst) begin
         if (rst) begin
             for (i = 0; i < 16; i = i + 1)
-                mem[i] <= 13'd0;
+                mem[i] <= 12'd0;
         end else if (wr_en) begin
             mem[addr] <= data_in;
         end
