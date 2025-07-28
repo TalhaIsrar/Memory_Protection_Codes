@@ -114,7 +114,7 @@ During decoding, the syndrome is calculated using the parity-check matrix. The v
 ### 🔹 `hamming_secded_decoder`
 
 * Inputs: `in_code [12:0]`
-* Outputs: `out_data [7:0]`, `error_corrected`
+* Outputs: `out_data [7:0]`, `single_error_corrected`, `double_error_detected`
 * Computes syndrome and detects single & double bit errors and corrects single bit errors.
 
 ### 🔹 `mem_secded`

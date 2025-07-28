@@ -24,7 +24,7 @@ Hsiao Code use half the number of possible bit combinations for constructing syn
 
 Where:
 - `d` = number of data bits
-- `p` = number of hamming code bits
+- `p` = number of hsiao code bits
 
 In our example we have d = 8. Solving the above equation we get a value of p = 5.
 
@@ -60,9 +60,9 @@ During decoding, the syndrome is calculated using the parity-check matrix. The v
 | `10110`  | 11              | Bit 11 (D6) corrupted |
 | `11001`  | 12              | Bit 12 (D7) corrupted |
 
-* If syndrome ≠ 0000 and overall parity (P0) incorrect, it's a single-bit error — correctable.
-* If syndrome ≠ 0000 but P0 is correct, it's a double-bit error — detectable only.
-* If syndrome = 0000 but P0 is incorrect, it's a error in the parity bit — correctable.
+* If syndrome = 00000, it means there is no error.
+* If syndrome ≠ 00000 and number of 1's in syndrome is odd, it is a single bit error — correctable.
+* If syndrome ≠ 00000 and number of 1's in syndrome is even, it is a double bit error — detectable.
 
 ---
 
@@ -71,20 +71,20 @@ During decoding, the syndrome is calculated using the parity-check matrix. The v
 ```
 .
 ├── src/
-│   └── hamming_sec_ded/
-│       ├── hamming_secded_encoder.v           # 8-bit to 13-bit Hamming encoder
-│       ├── hamming_secded_decoder.v           # Decoder with single-bit correction & double-bit detection
-│       ├── mem_secded.v                       # Simple 13-bit memory model
+│   └── hsiao_code/
+│       ├── hsiao_code_encoder.v               # 8-bit to 13-bit Hsiao encoder
+│       ├── hsiao_code_decoder.v               # Decoder with single-bit correction & double-bit detection
+│       ├── mem_hsiao_code.v                   # Simple 13-bit memory model
 │       ├── two_bit_fault_injector.v           # Fault injector for single and double-bit flip
-│       ├── ecc_hamming_secded_memory.v        # ECC memory (normal)
-│       └── ecc_hamming_secded_faulty_memory.v # ECC memory with fault injection
+│       ├── hsiao_code_memory.v                # ECC memory (normal)
+│       └── hsiao_code_faulty_memory.v         # ECC memory with fault injection
 │
 ├── tb/
-│   └── hamming_secded_tb.v                    # Testbench with functional scenarios
+│   └── hsiao_code_tb.v                        # Testbench with functional scenarios
 │
 ├── images/
-│   ├── ecc_hamming_secded_diagram.png         # Diagram of normal ECC memory
-│   └── ecc_hamming_secded_faulty_diagram.png  # Diagram with fault injection
+│   ├── hsiao_code_diagram.png                 # Diagram of normal ECC memory
+│   └── hsiao_code_faulty_diagram.png          # Diagram with fault injection
 │
 └── README.md
 ```
@@ -93,43 +93,43 @@ During decoding, the syndrome is calculated using the parity-check matrix. The v
 
 ## 🧠 Architecture Diagrams
 
-### ✅ ECC Hamming SEC DED Memory
+### ✅ ECC Hsiao SEC DED Memory
 
-![ECC Hamming SEC DED Memory](../../images/hamming_secded_mem.png)
+![ECC Hsiao SEC DED Memory](../../images/hsiao_code_mem.png)
 
-### ✅ ECC Hamming SEC DED Faulty Memory
+### ✅ ECC Hsiao SEC DED Faulty Memory
 
-![ECC Hamming Faulty SEC DED Memory](../../images/hamming_secded_faulty_mem.png)
+![ECC Hsiao Faulty SEC DED Memory](../../images/hsiao_code_faulty_mem.png)
 
 ---
 
 ## 🔩 Key Modules
 
-### 🔹 `hamming_secded_encoder`
+### 🔹 `hsiao_code_encoder`
 
 * Inputs: `input_data [7:0]`
 * Output: `output_code [12:0]`
-* Encodes data using Hamming logic and generates 5 parity bits.
+* Encodes data using Hsiao logic and generates 5 parity bits.
 
-### 🔹 `hamming_secded_decoder`
+### 🔹 `hsiao_code_decoder`
 
 * Inputs: `in_code [12:0]`
-* Outputs: `out_data [7:0]`, `error_corrected`
+* Outputs: `out_data [7:0]`, `single_error_corrected`, `double_error_detected`
 * Computes syndrome and detects single & double bit errors and corrects single bit errors.
 
-### 🔹 `mem_secded`
+### 🔹 `mem_hsiao_code`
 
-* Synchronous memory storing 13-bit Hamming codewords.
+* Synchronous memory storing 13-bit Hsiao codewords.
 
 ### 🔹 `two_bit_fault_injector`
 
 * Injects a single-bit error (or double-bit error depending on `is_two_bit_fault`) at the specified position when `fault_en` is high.
 
-### 🔹 `ecc_hamming_secded_memory`
+### 🔹 `hsiao_code_memory`
 
 * Top-level wrapper for encoder, memory, and decoder (no fault injection).
 
-### 🔹 `ecc_hamming_secded_faulty_memory`
+### 🔹 `hsiao_code_faulty_memory`
 
 * Includes fault injector before passing to decoder.
 ---
@@ -147,7 +147,7 @@ During decoding, the syndrome is calculated using the parity-check matrix. The v
 
 ## 🚀 Future Extensions
 
-* Add CRC, BCH, or Berger code alternatives
+* Add CRC or BCH code alternatives
 * Formal verification with SystemVerilog Assertions
 * Use parameterized width memory for generality
 
@@ -156,8 +156,8 @@ During decoding, the syndrome is calculated using the parity-check matrix. The v
 ## 🛠️ Usage (Vivado)
 
 1. Open Vivado and create a new project
-2. Add all files from `src/hamming_sec_ded/` as sources
-3. Add `hamming_secded_tb.v` from `tb/` as simulation source
+2. Add all files from `src/hsiao_code/` as sources
+3. Add `hsiao_code_tb.v` from `tb/` as simulation source
 4. Run simulation to observe correction behavior
 5. Optionally, use waveform viewer to inspect correction
 
