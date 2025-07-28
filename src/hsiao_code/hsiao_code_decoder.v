@@ -5,7 +5,7 @@ module hsiao_code_decoder(
     output reg double_error_detected
 );
 
-    wire [3:0] syndrome;
+    wire [4:0] syndrome;
     reg  [12:0] corrected_code;
     wire syndrome_parity_odd;
 
@@ -13,7 +13,7 @@ module hsiao_code_decoder(
     assign syndrome[4] = in_code[12] ^ in_code[11] ^ in_code[10] ^ in_code[9] ^ in_code[4];
     assign syndrome[3] = in_code[12] ^ in_code[8]  ^ in_code[7]  ^ in_code[6] ^ in_code[3];
     assign syndrome[2] = in_code[11] ^ in_code[10] ^ in_code[7]  ^ in_code[6] ^ in_code[5] ^ in_code[2];
-    assign syndrome[1] = in_code[10] ^ in_code[9]  ^ in_code[8]  ^ in_code[6] ^ in_code[5] ^ in_code[1];
+    assign syndrome[1] = in_code[11] ^ in_code[9]  ^ in_code[8]  ^ in_code[6] ^ in_code[5] ^ in_code[1];
     assign syndrome[0] = in_code[12] ^ in_code[10] ^ in_code[9]  ^ in_code[8] ^ in_code[7] ^ in_code[5] ^ in_code[0];
 
     // XOR of all 5 syndrome bits

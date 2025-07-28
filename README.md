@@ -54,7 +54,7 @@ This repository focuses on such codes implemented in Verilog for hardware design
 - [Hsiao SEC DED (Single Error Correction, Double Error Detection)](src/hsiao_code/README.md)  
   Implements Hsiao(13,8) code that **detects 1-bit & 2-bit errors & corrects 1-bit errors** for 8-bit data. Supports fault injection to test error correction in memory modules.
 
-- [Berger Code(Unidirectional Error Detection)](src/berger_code/README.md)  
+- [Berger Code (Unidirectional Error Detection)](src/berger_code/README.md)  
   Implements Berger(12,8) code that **detects all unidirectional errors** for 8-bit data. Supports fault injection to test error correction in memory modules.
 
 ---
