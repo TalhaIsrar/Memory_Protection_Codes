@@ -4,10 +4,12 @@ module crc_code_faulty_memory(
 
     input write,
     input read,
-    input data_in,
-    input addr_in,
+    input [7:0] data_in,
+    input [3:0] addr_in,
 
-    output mem_write_busy
+    output mem_write_busy,
+    output error_detected,
+    output [7:0] data_out
 );
 
     wire control_encoder_shift;
@@ -16,6 +18,8 @@ module crc_code_faulty_memory(
     
     wire [3:0] encoder_write_addr;
     wire [11:0] encoder_write_data;
+
+    wire [11:0] mem_encoded_data;
 
     // Controller instantiation
     crc_code_controller controller (
@@ -48,9 +52,19 @@ module crc_code_faulty_memory(
         .write_addr(encoder_write_addr),
         .read_addr(addr_in),
         .write_data(encoder_write_data),
-        .read_data()
+        .read_data(mem_encoded_data)
     );
 
+    // Decoder instantiation
+    crc_code_decoder decoder (
+        .clk(clk),
+        .rst(rst),
+        .encoded_data(mem_encoded_data),
+        .load(),
+        .shift_en(),        
+        .decoded_data(data_out),
+        .error_detected(error_detected)     
+    );
 
 
 endmodule
