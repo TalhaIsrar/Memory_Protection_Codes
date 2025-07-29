@@ -32,7 +32,7 @@ module crc_code_controller(
     always @(*) begin
         case (state)
             IDLE:  next_state = (write) ? SHIFT : IDLE;
-            SHIFT: next_state = (count == 12) ? DONE : SHIFT;
+            SHIFT: next_state = (count == 11) ? DONE : SHIFT;
             DONE:  next_state = IDLE;
             default: next_state = IDLE;
         endcase

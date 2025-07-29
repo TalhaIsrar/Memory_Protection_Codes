@@ -50,10 +50,11 @@ module crc_code_encoder(
     always @(posedge clk or posedge rst) begin
         if (rst)
             lfsr <= 4'b0000;
-        else if (shift_en) begin
+        else if (load) 
+            lfsr <= 4'b0000;
+        else if (shift_en)
             // Implements CRC-4 with polynomial x^4 + x + 1
             lfsr <= {lfsr[2:1] , lfsr[3] ^ lfsr[0], lfsr[3] ^ lsfr_input};
-        end 
     end
 
     // Assign the outputs
