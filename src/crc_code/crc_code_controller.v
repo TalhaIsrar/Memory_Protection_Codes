@@ -1,13 +1,13 @@
 module crc_code_controller(
     input clk,
     input rst,
-    input write,
+    input start,
 
     output reg shift_en,
     output reg load_en,
 
-    output reg write_mem_en,
-    output reg write_mem_busy
+    output reg data_valid,
+    output reg controller_busy
 );
 
     // State encoding using parameters
@@ -31,7 +31,7 @@ module crc_code_controller(
     // Next state logic
     always @(*) begin
         case (state)
-            IDLE:  next_state = (write) ? SHIFT : IDLE;
+            IDLE:  next_state = (start) ? SHIFT : IDLE;
             SHIFT: next_state = (count == 11) ? DONE : SHIFT;
             DONE:  next_state = IDLE;
             default: next_state = IDLE;
@@ -53,8 +53,8 @@ module crc_code_controller(
         // Default values
         load_en       = 0;
         shift_en      = 0;
-        write_mem_en  = 0;
-        write_mem_busy= 0;
+        data_valid  = 0;
+        controller_busy= 0;
 
         case (state)
             IDLE: begin
@@ -62,10 +62,10 @@ module crc_code_controller(
             end
             SHIFT: begin
                 shift_en = 1;
-                write_mem_busy = 1;
+                controller_busy = 1;
             end
             DONE: begin
-                write_mem_en = 1;
+                data_valid = 1;
             end
         endcase
     end

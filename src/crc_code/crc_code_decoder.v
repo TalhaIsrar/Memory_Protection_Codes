@@ -5,8 +5,10 @@ module crc_code_decoder(
 
     input load,
     input shift_en,
+    input processing_complete,
 
     output [7:0] decoded_data,
+    output data_valid,
     output error_detected;
 );
 
@@ -16,6 +18,7 @@ module crc_code_decoder(
     reg [3:0] lfsr;
     
     wire lsfr_input;
+    wire error;
 
     // Internal Registers to store data
     always @(posedge clk or posedge rst) begin
@@ -54,8 +57,13 @@ module crc_code_decoder(
             lfsr <= {lfsr[2:1] , lfsr[3] ^ lfsr[0], lfsr[3] ^ lsfr_input};
     end
 
+    assign error = |lfsr;
+
     // Assign the outputs
     assign data_out = data_reg;
-    assign error_detected = |lfsr;
+    assign error_detected = error;
+
+    // Data is valid if processing complete & no error
+    assign data_valid = !error & !processing_complete;
 
 endmodule

@@ -19,8 +19,8 @@ module crc_controller_tb();
         .write(write),
         .shift_en(shift_en),
         .load_en(load_en),
-        .write_mem_en(write_mem_en),
-        .write_mem_busy(write_mem_busy)
+        .data_valid(write_mem_en),
+        .controller_busy(write_mem_busy)
     );
 
 
