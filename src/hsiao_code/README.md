@@ -17,7 +17,7 @@ Hsiao codes are error-correcting codes that add redundant bits (parity bits) to 
 
 We use the **Hsiao(13,8)** configuration:
 
-## 📏 Hsiao SEC Code Bit Calculation
+## 📏 Hsiao SEC DED Code Bit Calculation
 
 Hsiao Code use half the number of possible bit combinations for constructing syndromes. For a code word, we can use the following formula to get the number of check bits
 `p = ceil(log2(p + d)) + 1`
@@ -95,11 +95,11 @@ During decoding, the syndrome is calculated using the parity-check matrix. The v
 
 ### ✅ ECC Hsiao SEC DED Memory
 
-![ECC Hsiao SEC DED Memory](../../images/hsiao_code_mem.png)
+![ECC Hsiao SEC DED Memory](../../images/hsiao_code_memory.png)
 
 ### ✅ ECC Hsiao SEC DED Faulty Memory
 
-![ECC Hsiao Faulty SEC DED Memory](../../images/hsiao_code_faulty_mem.png)
+![ECC Hsiao Faulty SEC DED Memory](../../images/hsiao_code_faulty_memory.png)
 
 ---
 
