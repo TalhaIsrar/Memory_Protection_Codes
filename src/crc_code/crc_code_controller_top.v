@@ -28,7 +28,7 @@ module crc_code_controller_top(
     );
 
     // Controller module for decoder - Read
-    crc_code_controller decoder_controller (
+    crc_code_controller decoder_controller(
         .clk(clk),
         .rst(rst),
         .start(read),

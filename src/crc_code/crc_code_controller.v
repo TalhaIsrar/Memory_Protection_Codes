@@ -1,4 +1,6 @@
-module crc_code_controller(
+module crc_code_controller #(
+    parameter NUM_CYCLES = 11
+)(
     input clk,
     input rst,
     input start,
@@ -32,7 +34,7 @@ module crc_code_controller(
     always @(*) begin
         case (state)
             IDLE:  next_state = (start) ? SHIFT : IDLE;
-            SHIFT: next_state = (count == 11) ? DONE : SHIFT;
+            SHIFT: next_state = (count == NUM_CYCLES) ? DONE : SHIFT;
             DONE:  next_state = IDLE;
             default: next_state = IDLE;
         endcase

@@ -39,7 +39,7 @@ module crc_code_decoder(
             if (load)
                 data_shift_reg  <= encoded_data;
             else if (shift_en)
-                data_shift_reg  <= {encoded_data[10:0] , 1'b0};
+                data_shift_reg  <= {data_shift_reg[10:0] , 1'b0};
         end 
     end
 
