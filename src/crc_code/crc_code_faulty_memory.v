@@ -7,6 +7,10 @@ module crc_code_faulty_memory(
     input [7:0] data_in,
     input [3:0] addr_in,
 
+    input [3:0] fault_addr,
+    input [1:0] burst_error_length,
+    input fault_enable,
+
     output mem_write_busy,
     output read_busy,
     output data_valid,
@@ -26,6 +30,7 @@ module crc_code_faulty_memory(
     wire [11:0] encoder_write_data;
 
     wire [11:0] mem_encoded_data;
+    wire [11:0] mem_corrupted_data;
 
     // Controller instantiation
     crc_code_controller controller (
@@ -66,11 +71,20 @@ module crc_code_faulty_memory(
         .read_data(mem_encoded_data)
     );
 
+    // Burst Error Injector
+    burst_error_injector injector(
+        .in_code(mem_encoded_data),
+        .fault_start_addr(fault_addr),
+        .burst_error_length(burst_error_length),
+        .fault_en(fault_enable),
+        .out_error_code(mem_corrupted_data)
+    );
+    
     // Decoder instantiation
     crc_code_decoder decoder (
         .clk(clk),
         .rst(rst),
-        .encoded_data(mem_encoded_data),
+        .encoded_data(mem_corrupted_data),
         .load(control_decoder_load),
         .shift_en(control_decoder_shift),
         .processing_complete(control_decoder_complete),      
