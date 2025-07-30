@@ -20,7 +20,7 @@ module crc_code_tb();
     wire [7:0]  data_out;
 
     // Instantiate DUT
-    ecc_hamming_faulty_memory dut (
+    crc_code_faulty_memory dut (
         .clk(clk),
         .rst(rst),
         .write(write),
@@ -49,7 +49,7 @@ module crc_code_tb();
         write = 1;
         @(negedge clk);
         write = 0;
-        repeat (11) @(negedge clk); // wait remaining cycles
+        repeat (12) @(negedge clk); // wait remaining cycles
     end
     endtask
 
@@ -63,7 +63,7 @@ module crc_code_tb();
         read = 1;
         @(negedge clk);
         read = 0;
-        repeat (11) @(negedge clk); // wait remaining cycles
+        repeat (12) @(negedge clk); // wait remaining cycles
 
         if (data_valid) begin
             $display("Read Addr: %0d | Data: %0h | Error Detected: %b", addr, data_out, error_detected);

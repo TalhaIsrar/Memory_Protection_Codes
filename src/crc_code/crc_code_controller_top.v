@@ -4,18 +4,18 @@ module crc_code_controller_top(
     input read,
     input write,
 
-    output reg write_shift_en,
-    output reg write_load_en,
+    output write_shift_en,
+    output write_load_en,
 
-    output reg read_shift_en,
-    output reg read_load_en,
+    output read_shift_en,
+    output read_load_en,
 
-    output reg write_mem_en,
-    output reg write_mem_busy,
+    output write_mem_en,
+    output write_mem_busy,
 
-    output reg read_data_valid,
-    output reg read_controller_busy
-)
+    output read_data_valid,
+    output read_controller_busy
+);
     // Controller module for encoder - Write
     crc_code_controller encoder_controller (
         .clk(clk),
@@ -28,7 +28,7 @@ module crc_code_controller_top(
     );
 
     // Controller module for decoder - Read
-    crc_code_controller encoder_controller (
+    crc_code_controller decoder_controller (
         .clk(clk),
         .rst(rst),
         .start(read),

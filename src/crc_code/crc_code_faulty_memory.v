@@ -15,7 +15,7 @@ module crc_code_faulty_memory(
     output read_busy,
     output data_valid,
     output error_detected,
-    output [7:0] data_out,
+    output [7:0] data_out
 );
 
     wire control_encoder_shift;
@@ -33,7 +33,7 @@ module crc_code_faulty_memory(
     wire [11:0] mem_corrupted_data;
 
     // Controller instantiation
-    crc_code_controller controller (
+    crc_code_controller_top controller (
         .clk(clk),
         .rst(rst),
         .write(write),
@@ -89,9 +89,8 @@ module crc_code_faulty_memory(
         .shift_en(control_decoder_shift),
         .processing_complete(control_decoder_complete),      
         .decoded_data(data_out),
-        .data_valid(data_valid)
+        .data_valid(data_valid),
         .error_detected(error_detected)     
     );
-
 
 endmodule

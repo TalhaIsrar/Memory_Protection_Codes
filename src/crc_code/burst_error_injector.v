@@ -1,4 +1,4 @@
-module burst_error_simulator (
+module burst_error_injector (
     input  [11:0] in_code,
     input  [3:0]  fault_start_addr,        // 0 to 11
     input  [1:0]  burst_error_length,      // 0 = 1-bit, 3 = 4-bit
