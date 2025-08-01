@@ -89,6 +89,8 @@ Our generator polynomial has a degree of 4, hence it can detect upto 4 bit burst
           `addr_out [3:0]`
 * Has an LSFR connected to a controller. It encodes the data in 12 cycles.
 
+![CRC4 Encoder](../../images/crc_encoder.png)
+
 ### 🔹 `crc_code_decoder`
 
 * Inputs: `encoded_data [11:0]`
@@ -104,7 +106,9 @@ Our generator polynomial has a degree of 4, hence it can detect upto 4 bit burst
 
 ### 🔹 `crc_code_controller`
 
-* When start signal is asserted, it performs shift operations for 12 cycles for the LFSRs
+* When start signal is asserted, it performs shift operations for 12 cycles for the LFSRs. The FSM is given below
+
+<img src="../../images/crc_code_controller_fsm.png" alt="CRC4 Code Controller FSM" width="400">
 
 ### 🔹 `crc_code_controller_top`
 
