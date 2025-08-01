@@ -22,7 +22,7 @@ This repository focuses on such codes implemented in Verilog for hardware design
 │    ├── hamming_sec_ded / # Hamming Single Error Correction & Double Error Detection code project
 │    ├── hsiao_code      / # Hsiao Single Error Correction & Double Error Detection code project
 │    ├── berger_code     / # Berger Code Detection for Unidirectional Errors
-│    └── ... # OTHERS TO BE ADDED
+│    ├── crc_code        / # CRC4 Code for Single bit and upto 4 Bit Burst Error Detection
 │
 ├── tb/ # Testbenches corresponding to different projects
 │
@@ -56,6 +56,9 @@ This repository focuses on such codes implemented in Verilog for hardware design
 
 - [Berger Code (Unidirectional Error Detection)](src/berger_code/README.md)  
   Implements Berger(12,8) code that **detects all unidirectional errors** for 8-bit data. Supports fault injection to test error correction in memory modules.
+
+- [CRC4 Code (Single Bit Error & Upto 4-bit Burst Error Detection)](src/crc_code/README.md)  
+  Implements CRC4(12,8) code that **detects all single bit & upto 4 bit burst errors** for 8-bit data. Supports fault injection to test error correction in memory modules.
 
 ---
 

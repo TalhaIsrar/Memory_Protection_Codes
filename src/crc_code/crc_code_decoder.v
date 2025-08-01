@@ -9,7 +9,8 @@ module crc_code_decoder(
 
     output [7:0] decoded_data,
     output data_valid,
-    output error_detected
+    output error_detected,
+    output completed
 );
 
     reg [11:0] data_shift_reg;
@@ -61,9 +62,10 @@ module crc_code_decoder(
 
     // Assign the outputs
     assign decoded_data = data_reg;
-    assign error_detected = error;
+    assign completed = processing_complete;
 
     // Data is valid if processing complete & no error
     assign data_valid = !error & processing_complete;
+    assign error_detected = error & processing_complete;
 
 endmodule

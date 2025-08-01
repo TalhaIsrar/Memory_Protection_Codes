@@ -17,6 +17,7 @@ module crc_code_tb();
     wire        read_busy;
     wire        data_valid;
     wire        error_detected;
+    wire        completed;
     wire [7:0]  data_out;
 
     // Instantiate DUT
@@ -34,6 +35,7 @@ module crc_code_tb();
         .read_busy(read_busy),
         .data_valid(data_valid),
         .error_detected(error_detected),
+        .completed(completed),
         .data_out(data_out)
     );
 

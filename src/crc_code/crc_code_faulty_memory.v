@@ -15,6 +15,7 @@ module crc_code_faulty_memory(
     output read_busy,
     output data_valid,
     output error_detected,
+    output completed,
     output [7:0] data_out
 );
 
@@ -90,7 +91,8 @@ module crc_code_faulty_memory(
         .processing_complete(control_decoder_complete),      
         .decoded_data(data_out),
         .data_valid(data_valid),
-        .error_detected(error_detected)     
+        .error_detected(error_detected),
+        .completed(completed)     
     );
 
 endmodule
