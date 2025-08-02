@@ -69,11 +69,11 @@ Our generator polynomial has a degree of 4, hence it can detect upto 4 bit burst
 
 ### ✅ Berger Code Memory
 
-![CRC4 Code Memory](../../images/crc_code_memory.png)
+![CRC4 Code Memory](../../images/crc_code_mem.png)
 
 ### ✅ Berger Code Faulty Memory
 
-![CRC4 Code Faulty Memory](../../images/crc_code_faulty_memory.png)
+![CRC4 Code Faulty Memory](../../images/crc_code_faulty_mem.png)
 
 ---
 
@@ -104,7 +104,7 @@ Our generator polynomial has a degree of 4, hence it can detect upto 4 bit burst
 * Has an LSFR connected to a controller. It decodes the data in 12 cycles.
 * Completed goes to 1 for one cycle, and at the same time either data_valid or error_detected goes to 1.
 
-![CRC4 Encoder](../../images/crc_decoder.png)
+![CRC4 Decoder](../../images/crc_decoder.png)
 
 ### 🔹 `crc_code_controller`
 

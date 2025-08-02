@@ -22,7 +22,7 @@ This repository focuses on such codes implemented in Verilog for hardware design
 │    ├── hamming_sec_ded / # Hamming Single Error Correction & Double Error Detection code project
 │    ├── hsiao_code      / # Hsiao Single Error Correction & Double Error Detection code project
 │    ├── berger_code     / # Berger Code Detection for Unidirectional Errors
-│    ├── crc_code        / # CRC4 Code for Single bit and upto 4 Bit Burst Error Detection
+│    └── crc_code        / # CRC4 Code for Single bit and upto 4 Bit Burst Error Detection
 │
 ├── tb/ # Testbenches corresponding to different projects
 │
