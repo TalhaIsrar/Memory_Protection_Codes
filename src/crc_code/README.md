@@ -104,6 +104,8 @@ Our generator polynomial has a degree of 4, hence it can detect upto 4 bit burst
 * Has an LSFR connected to a controller. It decodes the data in 12 cycles.
 * Completed goes to 1 for one cycle, and at the same time either data_valid or error_detected goes to 1.
 
+![CRC4 Encoder](../../images/crc_decoder.png)
+
 ### 🔹 `crc_code_controller`
 
 * When start signal is asserted, it performs shift operations for 12 cycles for the LFSRs. The FSM is given below
@@ -114,6 +116,8 @@ Our generator polynomial has a degree of 4, hence it can detect upto 4 bit burst
 
 * Has 2 instances of crc_code_controller. One is for the encoder and one for the decoder. 
 * The same controller can not be used because both encoder and decoder may be working at the same time.
+
+![CRC4 Controller top](../../images/crc_controller_top.png)
 
 ### 🔹 `mem_crc_code`
 
@@ -135,11 +139,21 @@ Our generator polynomial has a degree of 4, hence it can detect upto 4 bit burst
 
 ## ✅ Features Tested
 
+* Store and retrieve 8-bit values
+* Simulate single bit fault on any bit in the 12-bit codeword
+* Simulate 2/3/4 bit burst error in the 12-bit codeword
+* Verify correction logic works as expected
+* Waveform-based verification
+* Latch-free and synthesizable logic
 
 ---
 
 ## 🚀 Future Extensions
 
+* Optimize to perform lsfr computation in less cycles
+* Add BCH alternatives
+* Formal verification with SystemVerilog Assertions
+* Use parameterized width memory for generality
 
 ---
 
