@@ -1,4 +1,4 @@
-# 🧠 Berger Code-Protected Memory System
+# 🧠 CRC-4 Code-Protected Memory System
 
 This project implements a **CRC4 code** scheme for protecting memory from **single bit & upto 4-bit burst erors** in hardware using Verilog. It features:
 
