@@ -143,6 +143,14 @@ Prefer code values with **fewer 1s** for simpler hardware.
 
 ---
 
+## 📊 Simulation
+
+The performance of the code can be verified from the simulation below:
+
+![Hamming SEC Sim](../../images/simulation/hamming_sec.png)
+
+---
+
 ## ✅ Features Tested
 
 * Store and retrieve 8-bit values

@@ -134,6 +134,14 @@ During decoding, the syndrome is calculated using the parity-check matrix. The v
 * Includes fault injector before passing to decoder.
 ---
 
+## 📊 Simulation
+
+The performance of the code can be verified from the simulation below:
+
+![Hsiao Sim](../../images/simulation/hsiao_code.png)
+
+---
+
 ## ✅ Features Tested
 
 * Store and retrieve 8-bit values

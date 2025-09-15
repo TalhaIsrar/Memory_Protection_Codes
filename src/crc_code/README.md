@@ -137,6 +137,14 @@ Our generator polynomial has a degree of 4, hence it can detect upto 4 bit burst
 
 ---
 
+## 📊 Simulation
+
+The performance of the code can be verified from the simulation below:
+
+![CRC Sim](../../images/simulation/crc_code.png)
+
+---
+
 ## ✅ Features Tested
 
 * Store and retrieve 8-bit values

@@ -108,6 +108,14 @@ In our example d = 8, so using the formula b = 4
 
 ---
 
+## 📊 Simulation
+
+The performance of the code can be verified from the simulation below:
+
+![Berger Sim](../../images/simulation/berger_code.png)
+
+---
+
 ## ✅ Features Tested
 
 * Correct encoding and decoding of 8-bit data with Berger code
